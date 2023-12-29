@@ -60,7 +60,7 @@ function matrixGenerator(cardValues, size = 4) {
   gameContainer.innerHTML = "";
 
   cardValues = [...cardValues, ...cardValues];
-  //simple shuffle
+  //simple shuf
   cardValues.sort(function(){return Math.random() - 0.5;});
   for (let i = 0; i < size * size; i++) {
 
