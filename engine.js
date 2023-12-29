@@ -10,7 +10,6 @@ let interval;
 let firstCard = false;
 let secondCard = false;
 
-//Items array
 const items = [
   { name: "1", image: "1.png" },
   { name: "2", image: "2.png" },
@@ -23,45 +22,38 @@ const items = [
 ];
 
 
-//Initial Time
 let seconds = 0,
   minutes = 0;
-//Initial moves and win count 
+
 let movesCount = 0,
   winCount = 0;
 
-//For timer
-const timeGenerator = () => {
+
+const timeGenerator = function () {
   seconds += 1;
-  //minutes logic
+
   if (seconds >= 60) {
     minutes += 1;
     seconds = 0;
   }
-  //format time before displaying
+
   let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
   let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
   timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
 };
 
-//For calculating moves
-const movesCounter = () => {
+
+const movesCounter = function() {
   movesCount += 1;
   moves.innerHTML = `<span>Moves:</span>${movesCount}`;
 };
 
-//Pick random objects from the items array
-const generateRandom = (size = 4) => {
-  //temporary array
+const generateRandom = function(size = 4) {
   let tempArray = [...items];
-  //initializes cardValues array
-  //size should be double (4*4 matrix)/2 since pairs of objects would exist
   size = (size * size); 
-  //Random object selection
-  const shuffledArray = tempArray.sort(function(){ Math.random()});
+  const shuffledArray = tempArray.sort(function(a, b){ Math.random()});
   const selectedCards = shuffledArray.slice(0, size+1);
   return selectedCards;
-
 };
 
 function matrixGenerator(cardValues, size = 4) {
@@ -71,12 +63,7 @@ function matrixGenerator(cardValues, size = 4) {
   //simple shuffle
   cardValues.sort(function(){return Math.random() - 0.5;});
   for (let i = 0; i < size * size; i++) {
-    /*
-        Create Cards
-        before => front side (contains question mark)
-        after => back side (contains actual image);
-        data-card-values is a custom attribute which stores the names of the cards to match later
-      */
+
     gameContainer.innerHTML += `
      <div class="card-container" data-card-value="${cardValues[i].name}">
         <div class="card-before">?</div>
